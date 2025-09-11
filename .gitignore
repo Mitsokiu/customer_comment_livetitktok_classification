@@ -1,0 +1,18 @@
+# Bỏ venv (môi trường ảo)
+venv/
+ENV/
+env/
+.venv/
+
+# Bỏ file Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Bỏ file IDE
+.vscode/
+.idea/
+
+# Bỏ file hệ thống
+.DS_Store
+Thumbs.db
