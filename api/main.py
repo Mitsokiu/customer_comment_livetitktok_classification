@@ -2,7 +2,7 @@ from TikTokLive import TikTokLiveClient
 from TikTokLive.events import CommentEvent
 from fastapi import FastAPI , HTTPException
 import asyncio
-from backend.load_model import predict
+from modul.load_model import predict
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
