@@ -1,57 +1,66 @@
-**#Comment Classification Model**
+Comment Classification Model
+1) Overview
 
-**#1) Overview**
-Notebook  xây dựng mô hình phân loại comment tiếng Việt từ livestream / social commerce. 
-Mục tiêu: tự động nhận diện loại comment để phục vụ automation trong hệ thống bán hàng .
+Notebook xây dựng mô hình phân loại comment tiếng Việt từ livestream / social commerce.
+Mục tiêu: tự động nhận diện loại comment để phục vụ automation trong hệ thống bán hàng.
 
-**#2) Dataset**
+2) Dataset
 
-nguồn: file livestream_comments_1000.csv
+file nguồn: livestream_comments_1000.csv
 
-dữ liệu dạng text 2 cột chính: comment / labels
+dữ liệu gồm 2 cột chính: comment và labels
 
-dữ liệu có nhiều dạng comment ngắn, tự nhiên
+dạng comment ngắn, tự nhiên, nhiều biến thể ngôn ngữ
 
-đã tiến hành bước tiền xử lý: lower case, remove url, remove digit, remove punctuation, strip whitespace
+preprocessing đã áp dụng:
 
-**#3) Model Approach**
+lowercase
 
-dùng HuggingFace Transformer model (pretrained base model)
+remove url
 
-fine tune classification head trên tập comment tiếng Việt
+remove digit
 
-training trực tiếp end2end trên HF Trainer
+remove punctuation
 
-Lợi điểm: model hiểu ngữ cảnh VN tốt hơn TF-IDF.
+strip whitespace
 
-**#4) Training Process**
+3) Model Approach
+
+sử dụng HuggingFace Transformer model (pretrained base model)
+
+fine-tune classification head trên dataset tiếng Việt
+
+training end-to-end với HF Trainer
+
+Lý do chọn approach này: mô hình pretrained hiểu ngữ cảnh tiếng Việt tốt hơn các phương pháp TF-IDF truyền thống.
+
+4) Training Process
 
 chia train / validation
 
-tối ưu cross entropy classification
+optimize bằng cross entropy
 
-lưu mapping id2label / label2id từ model để phục vụ inference API
+lưu id2label và label2id để dùng cho inference sau này
 
-**#5)Evaluate**
-| Metric      | Value      |
-| ----------- | ---------- |
-| Loss        | 1.11398    |
-| Accuracy    | 0.955      |
-| F1 Macro    | 0.9551     |
-| F1 Weighted | 0.95537    |
-| Runtime     | 196.11 sec |
+5) Evaluation Result (Epoch 3)
+Metric	Value
+Loss	1.11398
+Accuracy	0.955
+F1 Macro	0.9551
+F1 Weighted	0.95537
+Runtime	196.11 sec
+6) Notebook Structure
 
+Load & Clean Data
 
-**#6) Notebook Structure**
+EDA đơn giản
 
-Load & Clean dữ liệu
+Load Tokenizer + Model HF
 
-EDA simple
+Train Model
 
-Tokenizer + Model load HF
+Evaluate
 
-Train / Evaluate model
+Save mapping label
 
-Save mapping id2label
-
-Inference test với 1 câu thực tế
+Inference kiểm tra với câu thực tế
